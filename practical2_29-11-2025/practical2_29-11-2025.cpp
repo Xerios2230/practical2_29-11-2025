@@ -1,11 +1,12 @@
 #include <iostream>
 #include <windows.h>
 #include <bitset>
+#include <cstring>
 using namespace std;
 
 struct WashingMachine {
-    string brand;
-    string color;
+    char brand[50];
+    char color[30];
     double width;
     double length;
     double height;
@@ -15,9 +16,9 @@ struct WashingMachine {
 };
 
 struct Iron {
-    string brand;
-    string model;
-    string color;
+    char brand[50];
+    char model[30];
+    char color[30];
     int minTemp;
     int maxTemp;
     bool steam;
@@ -25,17 +26,17 @@ struct Iron {
 };
 
 struct Boiler {
-    string brand;
-    string color;
+    char brand[50];
+    char color[30];
     int power;
     double volume;
     int temp;
 };
 
 struct Animal {
-    string name;
-    string className;
-    string nickname;
+    char name[30];
+    char className[30];
+    char nickname[30];
 };
 
 union IntBytes {
@@ -72,15 +73,15 @@ int main()
     SetConsoleOutputCP(1251);
 
     // 1
-    WashingMachine wm{ "Samsung", "¡≥ÎËÈ", 60, 55, 85, 2000, 1200, 90 };
+    WashingMachine wm{ "Samsung", "–ë—ñ–ª–∏–π", 60, 55, 85, 2000, 1200, 90 };
     showWashingMachine(wm);
 
     // 2
-    Iron i{ "Philips", "GC3920", "—ËÌ≥È", 100, 220, true, 2400 };
+    Iron i{ "Philips", "GC3920", "–°–∏–Ω—ñ–π", 100, 220, true, 2400 };
     showIron(i);
 
     // 3
-    Boiler b{ "Ariston", "—≥·ÎˇÒÚËÈ", 1500, 50, 75 };
+    Boiler b{ "Ariston", "–°—Ä—ñ–±–ª—è—Å—Ç–∏–π", 1500, 50, 75 };
     showBoiler(b);
 
     // 4
@@ -99,123 +100,119 @@ int main()
     // 6
     IntUnsignedInt iu;
     iu.signedValue = -12345;
-    cout << "«Ì‡˜ÂÌÌˇ ˇÍ signed: " << iu.signedValue << endl;
-    cout << "«Ì‡˜ÂÌÌˇ ˇÍ unsigned: " << iu.unsignedValue << endl;
+    cout << "–ó–Ω–∞—á–µ–Ω–Ω—è —è–∫ signed: " << iu.signedValue << endl;
+    cout << "–ó–Ω–∞—á–µ–Ω–Ω—è —è–∫ unsigned: " << iu.unsignedValue << endl;
 
     // 7
     IntBoolBytes ibool;
     ibool.number = 0x00FF00FF;
-    cout << " ≥Î¸Í≥ÒÚ¸ ÌÛÎ¸Ó‚Ëı ·‡ÈÚ≥‚: " << countZeroBytes(ibool) << endl;
+    cout << "–ö—ñ–ª—å–∫—ñ—Å—Ç—å –Ω—É–ª—å–æ–≤–∏—Ö –±–∞–π—Ç—ñ–≤: " << countZeroBytes(ibool) << endl;
     showByteInfo(ibool);
 }
 
 void showWashingMachine(WashingMachine wm)
 {
-    cout << "\nœ‡Î¸Ì‡ Ï‡¯ËÌÍ‡:\n";
-    cout << "‘≥Ï‡: " << wm.brand << "\n ÓÎ≥: " << wm.color
-        << "\n–ÓÁÏ≥Ë (ÿxƒx¬): " << wm.width << "x" << wm.length << "x" << wm.height
-        << "\nœÓÚÛÊÌ≥ÒÚ¸: " << wm.power << " ¬Ú"
-        << "\nÿ‚Ë‰Í≥ÒÚ¸ ‚≥‰ÊËÏÛ: " << wm.spinSpeed << " Ó·/ı‚"
-        << "\n“ÂÏÔÂ‡ÚÛ‡ Ì‡„≥‚Û: " << wm.temp << "∞C" << endl;
+    cout << "\n–ü—Ä–∞–ª—å–Ω–∞ –º–∞—à–∏–Ω–∫–∞:\n";
+    cout << "–§—ñ—Ä–º–∞: " << wm.brand << "\n–ö–æ–ª—ñ—Ä: " << wm.color
+        << "\n–†–æ–∑–º—ñ—Ä–∏ (–®x–îx–í): " << wm.width << "x" << wm.length << "x" << wm.height
+        << "\n–ü–æ—Ç—É–∂–Ω—ñ—Å—Ç—å: " << wm.power << " –í—Ç"
+        << "\n–®–≤–∏–¥–∫—ñ—Å—Ç—å –≤—ñ–¥–∂–∏–º—É: " << wm.spinSpeed << " –æ–±/—Ö–≤"
+        << "\n–¢–µ–º–ø–µ—Ä–∞—Ç—É—Ä–∞ –Ω–∞–≥—Ä—ñ–≤—É: " << wm.temp << "¬∞C" << endl;
 }
 
 void showIron(Iron i)
 {
-    cout << "\nœ‡ÒÍ‡:\n";
-    cout << "‘≥Ï‡: " << i.brand << "\nÃÓ‰ÂÎ¸: " << i.model
-        << "\n ÓÎ≥: " << i.color
-        << "\n“ÂÏÔÂ‡ÚÛ‡: " << i.minTemp << "-" << i.maxTemp << "∞C"
-        << "\nœÓ‰‡˜‡ Ô‡Ë: " << (i.steam ? "Ú‡Í" : "Ì≥")
-        << "\nœÓÚÛÊÌ≥ÒÚ¸: " << i.power << " ¬Ú" << endl;
+    cout << "\n–ü—Ä–∞—Å–∫–∞:\n";
+    cout << "–§—ñ—Ä–º–∞: " << i.brand << "\n–ú–æ–¥–µ–ª—å: " << i.model
+        << "\n–ö–æ–ª—ñ—Ä: " << i.color
+        << "\n–¢–µ–º–ø–µ—Ä–∞—Ç—É—Ä–∞: " << i.minTemp << "-" << i.maxTemp << "¬∞C"
+        << "\n–ü–æ–¥–∞—á–∞ –ø–∞—Ä–∏: " << (i.steam ? "—Ç–∞–∫" : "–Ω—ñ")
+        << "\n–ü–æ—Ç—É–∂–Ω—ñ—Å—Ç—å: " << i.power << " –í—Ç" << endl;
 }
 
 void showBoiler(Boiler b)
 {
-    cout << "\n¡ÓÈÎÂ:\n";
-    cout << "‘≥Ï‡: " << b.brand
-        << "\n ÓÎ≥: " << b.color
-        << "\nœÓÚÛÊÌ≥ÒÚ¸: " << b.power << " ¬Ú"
-        << "\nŒ·Òˇ„: " << b.volume << " Î"
-        << "\n“ÂÏÔÂ‡ÚÛ‡ Ì‡„≥‚Û: " << b.temp << "∞C" << endl;
+    cout << "\n–ë–æ–π–ª–µ—Ä:\n";
+    cout << "–§—ñ—Ä–º–∞: " << b.brand
+        << "\n–ö–æ–ª—ñ—Ä: " << b.color
+        << "\n–ü–æ—Ç—É–∂–Ω—ñ—Å—Ç—å: " << b.power << " –í—Ç"
+        << "\n–û–±—Å—è–≥: " << b.volume << " –ª"
+        << "\n–¢–µ–º–ø–µ—Ä–∞—Ç—É—Ä–∞ –Ω–∞–≥—Ä—ñ–≤—É: " << b.temp << "¬∞C" << endl;
 }
 
 void fillAnimal(Animal& a)
 {
-    cout << "\n¬‚Â‰≥Ú¸ Ì‡Á‚Û Ú‚‡ËÌË: ";
+    cout << "\n–í–≤–µ–¥—ñ—Ç—å –Ω–∞–∑–≤—É —Ç–≤–∞—Ä–∏–Ω–∏: ";
     cin >> a.name;
-    cout << "¬‚Â‰≥Ú¸ ÍÎ‡Ò Ú‚‡ËÌË: ";
+    cout << "–í–≤–µ–¥—ñ—Ç—å –∫–ª–∞—Å —Ç–≤–∞—Ä–∏–Ω–∏: ";
     cin >> a.className;
-    cout << "¬‚Â‰≥Ú¸ ÍÎË˜ÍÛ: ";
+    cout << "–í–≤–µ–¥—ñ—Ç—å –∫–ª–∏—á–∫—É: ";
     cin >> a.nickname;
 }
 
 void showAnimal(Animal a)
 {
-    cout << "\n“‚‡ËÌ‡:\nÕ‡Á‚‡: " << a.name
-        << "\n Î‡Ò: " << a.className
-        << "\n ÎË˜Í‡: " << a.nickname << endl;
+    cout << "\n–¢–≤–∞—Ä–∏–Ω–∞:\n–ù–∞–∑–≤–∞: " << a.name
+        << "\n–ö–ª–∞—Å: " << a.className
+        << "\n–ö–ª–∏—á–∫–∞: " << a.nickname << endl;
 }
 
 void makeSound(Animal a)
 {
-    cout << a.nickname << " ÔÓ‰‡∫ „ÓÎÓÒ: ";
-    if (a.name == " ≥Ú")
-        cout << "ÃˇÛ!\n";
-    else if (a.name == "—Ó·‡Í‡")
-        cout << "√‡‚!\n";
+    cout << a.nickname << " –ø–æ–¥–∞—î –≥–æ–ª–æ—Å: ";
+    if (strcmp(a.name, "–ö—ñ—Ç") == 0)
+        cout << "–ú—è—É!\n";
+    else if (strcmp(a.name, "–°–æ–±–∞–∫–∞") == 0)
+        cout << "–ì–∞–≤!\n";
     else
-        cout << "ÕÂ‚≥‰ÓÏËÈ Á‚ÛÍ!\n";
+        cout << "–ù–µ–≤—ñ–¥–æ–º–∏–π –∑–≤—É–∫!\n";
 }
 
 void inputInt(IntBytes& ib)
 {
-    cout << "¬‚Â‰≥Ú¸ ˆ≥ÎÂ ˜ËÒÎÓ: ";
+    cout << "–í–≤–µ–¥—ñ—Ç—å —Ü—ñ–ª–µ —á–∏—Å–ª–æ: ";
     cin >> ib.number;
 }
 
 void showAllBytes(IntBytes ib)
 {
-    cout << "¡‡ÈÚË ˜ËÒÎ‡ (hex): ";
+    cout << "–ë–∞–π—Ç–∏ —á–∏—Å–ª–∞ (hex): ";
     for (int i = 0; i < sizeof(int); i++)
-    {
         cout << hex << (0xFF & (int)ib.bytes[i]) << " ";
-    }
     cout << dec << endl;
 }
 
 void showByte(IntBytes ib, int index)
 {
     if (index >= 0 && index < sizeof(int))
-        cout << "¡‡ÈÚ[" << index << "]: " << hex << (0xFF & (int)ib.bytes[index]) << dec << endl;
+        cout << "–ë–∞–π—Ç[" << index << "]: " << hex << (0xFF & (int)ib.bytes[index]) << dec << endl;
     else
-        cout << "ÕÂÔ‡‚ËÎ¸ÌËÈ ≥Ì‰ÂÍÒ ·‡ÈÚ‡!" << endl;
+        cout << "–ù–µ–ø—Ä–∞–≤–∏–ª—å–Ω–∏–π —ñ–Ω–¥–µ–∫—Å –±–∞–π—Ç–∞!" << endl;
 }
 
 void showByteBinary(IntBytes ib, int index)
 {
     if (index >= 0 && index < sizeof(int))
-        cout << "¡≥ÚÓ‚ËÈ ‚Ë„Îˇ‰ ·‡ÈÚ‡[" << index << "]: " << bitset<8>(ib.bytes[index]) << endl;
+        cout << "–ë—ñ—Ç–æ–≤–∏–π –≤–∏–≥–ª—è–¥ –±–∞–π—Ç–∞[" << index << "]: " << bitset<8>(ib.bytes[index]) << endl;
     else
-        cout << "ÕÂÔ‡‚ËÎ¸ÌËÈ ≥Ì‰ÂÍÒ ·‡ÈÚ‡!" << endl;
+        cout << "–ù–µ–ø—Ä–∞–≤–∏–ª—å–Ω–∏–π —ñ–Ω–¥–µ–∫—Å –±–∞–π—Ç–∞!" << endl;
 }
 
 int countZeroBytes(IntBoolBytes ib)
 {
     int count = 0;
     for (int i = 0; i < sizeof(int); i++)
-    {
         if (((ib.number >> (i * 8)) & 0xFF) == 0)
             count++;
-    }
     return count;
 }
 
 void showByteInfo(IntBoolBytes ib)
 {
-    cout << "≤ÌÙÓÏ‡ˆ≥ˇ ÔÓ ·‡ÈÚË ˜ËÒÎ‡:\n";
+    cout << "–Ü–Ω—Ñ–æ—Ä–º–∞—Ü—ñ—è –ø—Ä–æ –±–∞–π—Ç–∏ —á–∏—Å–ª–∞:\n";
     for (int i = 0; i < sizeof(int); i++)
     {
         int val = (ib.number >> (i * 8)) & 0xFF;
-        cout << "¡‡ÈÚ[" << i << "]: " << (val == 0 ? "ÌÛÎ¸Ó‚ËÈ" : "ÌÂ ÌÛÎ¸Ó‚ËÈ") << endl;
+        cout << "–ë–∞–π—Ç[" << i << "]: " << (val == 0 ? "–Ω—É–ª—å–æ–≤–∏–π" : "–Ω–µ –Ω—É–ª—å–æ–≤–∏–π") << endl;
     }
 }
